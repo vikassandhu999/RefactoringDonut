@@ -5,17 +5,17 @@
 static char *const shade_chars = ".,-~:;=!*#$@";
 
 int main() {
-    const int width = 1760;
+    const int buffer_size = 1760;
     const char space = ' ';
     const char new_line = '\n';
     float A = 0;
     float B = 0;
-    float z[width];
-    char buffer[width];
+    char buffer[buffer_size];
+    float z[buffer_size];
     printf("\x1b[2J");
     for (;;) {
-        memset(buffer, space, width);
-        memset(z, 0, width * 4);
+        memset(buffer, space, buffer_size);
+        memset(z, 0, buffer_size * 4);
         double delta_theta = 0.07;
         double delta_phi = 0.02;
         double TWO_PI = 6.28;
@@ -43,7 +43,7 @@ int main() {
             }
         }
         printf("\x1b[H");
-        for (int k = 0; width>=k; k++)
+        for (int k = 0; buffer_size >= k; k++)
             putchar(k % 80 ? buffer[k] : new_line);
         A += 0.04;
         B +=0.02;
