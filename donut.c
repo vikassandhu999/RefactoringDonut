@@ -2,17 +2,19 @@
 #include<math.h>
 #include<string.h>
 
+const int width = 1760;
+
 int main() {
     float A = 0;
     float B = 0;
     float i;
     float j;
-    float z[1760];
-    char b[1760];
+    float z[width];
+    char b[width];
     printf("\x1b[2J");
     for (;;) {
-        memset(b, 32, 1760);
-        memset(z, 0, 7040);
+        memset(b, 32, width);
+        memset(z, 0, width * 4);
         for (j = 0; 6.28 > j; j += 0.07)
             for (i = 0; 6.28 > i; i += 0.02) {
                 float c = sin(i);
@@ -35,7 +37,7 @@ int main() {
                 }
             }
         printf("\x1b[H");
-        for (int k = 0; 1761 > k; k++)
+        for (int k = 0; width>=k; k++)
             putchar(k % 80 ? b[k] : 10);
         A += 0.04;
         B +=0.02;
