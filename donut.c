@@ -2,8 +2,6 @@
 #include<math.h>
 #include<string.h>
 
-int k;
-
 int main() {
     float A = 0;
     float B = 0;
@@ -37,7 +35,7 @@ int main() {
                 }
             }
         printf("\x1b[H");
-        for (k = 0; 1761 > k; k++)
+        for (int k = 0; 1761 > k; k++)
             putchar(k % 80 ? b[k] : 10);
         A += 0.04;
         B +=0.02;
