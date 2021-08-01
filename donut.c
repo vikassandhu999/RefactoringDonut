@@ -7,16 +7,14 @@ const int width = 1760;
 int main() {
     float A = 0;
     float B = 0;
-    float i;
-    float j;
     float z[width];
     char b[width];
     printf("\x1b[2J");
     for (;;) {
         memset(b, 32, width);
         memset(z, 0, width * 4);
-        for (j = 0; 6.28 > j; j += 0.07)
-            for (i = 0; 6.28 > i; i += 0.02) {
+        for (float j = 0; 6.28 > j; j += 0.07)
+            for (float i = 0; 6.28 > i; i += 0.02) {
                 float c = sin(i);
                 float d = cos(j);
                 float e =sin(A);
