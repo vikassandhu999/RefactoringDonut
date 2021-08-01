@@ -13,14 +13,15 @@ const int width = 80;
 const int buffer_size = width * height;
 
 void display_frame(const char *buffer) {
+    printf("%s", set_cursor_to_start_chars);
     for (int k = 0; buffer_size >= k; k++)
         putchar(k % width ? buffer[k] : new_line);
 }
 
-void next_frame(float A, float B, char *buffer, float *z) {
-    double delta_theta = 0.07;
-    double delta_phi = 0.02;
-    double TWO_PI = 6.28;
+void load_next_frame(float A, float B, char *buffer, float *z) {
+    float delta_theta = 0.07;
+    float delta_phi = 0.02;
+    float TWO_PI = 6.28;
     for (float theta = 0; TWO_PI > theta; theta += delta_theta) {
         for (float phi = 0; TWO_PI > phi; phi += delta_phi) {
             float sin_phi = sin(phi);
@@ -34,8 +35,8 @@ void next_frame(float A, float B, char *buffer, float *z) {
             float h = cos_theta + 2;
             float D = 1 / (sin_phi * h * sin_A + sin_theta * cos_A + 5);
             float t = sin_phi * h * cos_A - sin_theta * sin_A;
-            int x = 40 + 30 * D * (cos_phi * h * cos_B - t * sin_B);
-            int y = 12 + 15 * D * (cos_phi * h * sin_B + t * cos_B);
+            int x = width / 2 + 30 * D * (cos_phi * h * cos_B - t * sin_B);
+            int y = (height/2 + 1) + 15 * D * (cos_phi * h * sin_B + t * cos_B);
             int o = x + width * y;
             int N = 8 * ((sin_theta * sin_A - sin_phi * cos_theta * cos_A) * cos_B - sin_phi * cos_theta * sin_A -
                          sin_theta * cos_A - cos_phi * cos_theta * sin_B);
@@ -58,8 +59,7 @@ int main() {
     while (1) {
         memset(buffer, space, buffer_size);
         memset(z, 0, buffer_size * 4);
-        next_frame(A, B, buffer, z);
-        printf("%s", set_cursor_to_start_chars);
+        load_next_frame(A, B, buffer, z);
         display_frame(buffer);
         A += delta_A;
         B += delta_B;
