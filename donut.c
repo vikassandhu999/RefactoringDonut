@@ -13,6 +13,8 @@ const int buffer_size = width * height;
 
 void next_frame(float A, float B, char *buffer, float *z);
 
+void display_frame(const char *buffer);
+
 int main() {
     float A = 0;
     float B = 0;
@@ -24,11 +26,15 @@ int main() {
         memset(z, 0, buffer_size * 4);
         next_frame(A, B, buffer, z);
         printf(set_cursor_to_start_chars);
-        for (int k = 0; buffer_size >= k; k++)
-            putchar(k % width ? buffer[k] : new_line);
+        display_frame(buffer);
         A += 0.04;
         B +=0.02;
     }
+}
+
+void display_frame(const char *buffer) {
+    for (int k = 0; buffer_size >= k; k++)
+        putchar(k % width ? buffer[k] : new_line);
 }
 
 void next_frame(float A, float B, char *buffer, float *z) {
