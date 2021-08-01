@@ -9,6 +9,8 @@
 /home/vikas/Desktop/Kai10/SoftwareCraftsmanship/RefactoringDonut/donut.c
 stdio.h
 -
+math.h
+-
 string.h
 -
 
