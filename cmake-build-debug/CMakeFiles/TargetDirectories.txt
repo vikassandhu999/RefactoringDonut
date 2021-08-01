@@ -1,0 +1,3 @@
+/home/vikas/Desktop/Kai10/SoftwareCraftsmanship/RefactoringDonut/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/vikas/Desktop/Kai10/SoftwareCraftsmanship/RefactoringDonut/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/vikas/Desktop/Kai10/SoftwareCraftsmanship/RefactoringDonut/cmake-build-debug/CMakeFiles/RefactoringDonut.dir

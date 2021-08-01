@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/vikas/Desktop/Kai10/SoftwareCraftsmanship/RefactoringDonut/donut.c
+stdio.h
+-
+string.h
+-
+
