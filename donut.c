@@ -8,17 +8,22 @@ static char *const set_cursor_to_start_chars = "\x1b[H";
 const char space = ' ';
 const char new_line = '\n';
 
-const int height = 22;
-const int width = 80;
-const int buffer_size = width * height;
+struct Screen {
+    int height;
+    int width;
+    char *buffer;
+};
 
-void display_frame(const char *buffer) {
+void display_frame(struct Screen screen) {
+    int buffer_size = screen.width * screen.height;
     printf("%s", set_cursor_to_start_chars);
     for (int k = 0; buffer_size >= k; k++)
-        putchar(k % width ? buffer[k] : new_line);
+        putchar(k % screen.width ? screen.buffer[k] : new_line);
 }
 
-void load_next_frame(float A, float B, char *buffer, float *z) {
+void load_next_frame(struct Screen screen,float A, float B, float *z) {
+    int width = screen.width;
+    int height = screen.height;
     float delta_theta = 0.07;
     float delta_phi = 0.02;
     float TWO_PI = 6.28;
@@ -42,7 +47,7 @@ void load_next_frame(float A, float B, char *buffer, float *z) {
                          sin_theta * cos_A - cos_phi * cos_theta * sin_B);
             if (height > y && y > 0 && x > 0 && width > x && D > z[o]) {
                 z[o] = D;
-                buffer[o] = shade_chars[N > 0 ? N : 0];
+                screen.buffer[o] = shade_chars[N > 0 ? N : 0];
             }
         }
     }
@@ -53,14 +58,21 @@ int main() {
     float B = 0;
     double delta_A = 0.04;
     double delta_B = 0.02;
+    struct Screen screen;
+    size_t width = 80;
+    size_t height = 22;
+    size_t buffer_size = width * height;
+    screen.width = width;
+    screen.height = height;
     char buffer[buffer_size];
+    screen.buffer = buffer;
     float z[buffer_size];
     printf("%s", clear_screen_chars);
     while (1) {
         memset(buffer, space, buffer_size);
         memset(z, 0, buffer_size * 4);
-        load_next_frame(A, B, buffer, z);
-        display_frame(buffer);
+        load_next_frame(screen,A, B,z);
+        display_frame(screen);
         A += delta_A;
         B += delta_B;
     }
